@@ -1,4 +1,4 @@
-# ΔPrompt (Delta Prompting)
+# ΔPrompt (Delta Prompt)
 
 ![ΔPrompt Banner](assets/logo/delta_large.png)
 
