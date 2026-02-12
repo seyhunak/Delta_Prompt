@@ -1,11 +1,27 @@
 # ΔPrompt — Sample Prompts
 
 This file contains **canonical examples** of ΔPrompt (Delta Prompting) across common task categories.
-Each prompt encodes **only deviations from baseline behavior**, not full instructions.
+Each prompt encodes **only deviations from baseline behavior**, leveraging the model's existing capabilities to minimize instruction bloat.
 
 ---
 
-## Creative Task
+## 📑 Table of Contents
+
+- [🎨 Creative Task](#-creative-task)
+- [🧮 Reasoning Task](#-reasoning-task)
+- [💻 Coding Task](#-coding-task)
+- [📊 Data Analysis](#-data-analysis)
+- [📝 Content Summarization](#-content-summarization)
+- [🤖 AI Agent Task](#-ai-agent-task)
+- [🤝 Multi Step - Coordination Agent](#-multi-step---coordination-agent)
+- [🔁 Chaining ΔPrompts](#-chaining-δprompts)
+- [⚓ Anchoring the Baseline](#-anchoring-the-baseline)
+
+---
+
+## 🎨 Creative Task
+
+**Goal:** Generate a short story with specific stylistic constraints.
 
 ```text
 Baseline: coherent, engaging, modern prose, neutral tone.
@@ -18,7 +34,9 @@ A future where memories can be deleted, but one memory refuses to disappear.
 
 ---
 
-## Reasoning Task
+## 🧮 Reasoning Task
+
+**Goal:** Solve a mathematical problem with explicit reasoning.
 
 ```text
 Baseline: concise, correct, no explicit reasoning unless required.
@@ -32,7 +50,9 @@ What is the average speed for the entire trip?
 
 ---
 
-## Coding Task
+## 💻 Coding Task
+
+**Goal:** Implement a specific function with performance and style constraints.
 
 ```text
 Baseline: idiomatic, readable Python, correct by default.
@@ -46,37 +66,39 @@ first non-repeating character in a string, or -1 if none exists.
 
 ---
 
-## Multi-Step Tool-Using Agent
+## 📊 Data Analysis
+
+**Goal:** Analyze a dataset and provide verified insights.
 
 ```text
-Baseline: autonomous, reliable, minimal verbosity, no tool use unless helpful.
+Baseline: rigorous, verified, cited, no marketing language.
 
-Δ(act as research agent | plan-first, explicit tool calls, verify before summarizing, ask before finalizing)
+Δ(analyze csv | use pandas, identify outliers, plot distribution, summarize key trends)
 
-Goal:
-Identify the top 3 open-source vector databases suitable for production use.
-
-Tools available:
-- Web search
-- Documentation lookup
-- Comparison table generator
-
-Constraints:
-- Focus on maturity, scalability, ecosystem
-- Cite sources
-- No marketing language
-
-Output format:
-1. Brief plan
-2. Tool calls (annotated)
-3. Comparison table
-4. Recommendation + uncertainty notes
-5. Ask user whether to proceed
+Task:
+Analyze the provided `sales_data.csv` to find seasonal trends and any anomalies in regional performance.
 ```
 
 ---
 
-## AI Agent Task
+## 📝 Content Summarization
+
+**Goal:** Summarize complex information with a specific focus.
+
+```text
+Baseline: concise, neutral, factual.
+
+Δ(summarize | bullet points, focus on economic impact, <150 words)
+
+Input:
+[Full text of a report on renewable energy adoption in developing nations]
+```
+
+---
+
+## 🤖 AI Agent Task
+
+**Goal:** Instruct an autonomous agent for a research mission.
 
 ```text
 Baseline: autonomous, goal-oriented, safe, minimal verbosity, explain decisions briefly.
@@ -90,11 +112,10 @@ for small engineering teams, focusing on pricing, integrations, and learning cur
 
 ---
 
-## Multi Step - Coordination Agent
+## 🤝 Multi Step - Coordination Agent
 
 **Scenario:**
-A small product team wants to evaluate whether to adopt a new feature: **Metrics feature to their Ads Platform**.
-Three agents collaborate: Research, Engineering, and Product.
+A product team evaluates a new "Metrics" feature for an Ads Platform. Three agents collaborate using ΔPrompt to maintain focus and efficiency.
 
 ### Shared Baseline (Declared Once)
 
@@ -104,93 +125,70 @@ do not repeat information already provided unless correcting it.
 ```
 
 ### Agent 1 — Research Agent
-
 ```text
 Δ(act as research agent | gather evidence, cite sources, no recommendations)
-
-Task:
-Summarize current industry practices and user demand related to the proposed feature.
+Task: Summarize industry practices and user demand for ad metrics.
 ```
 
 ### Agent 2 — Engineering Agent
-
 ```text
 Δ(act as engineering agent | feasibility-focused, surface risks, estimate effort)
-
-Task:
-Evaluate technical feasibility, dependencies, and implementation complexity
-based on the research agent’s findings.
+Task: Evaluate technical feasibility based on the research findings.
 ```
 
 ### Agent 3 — Product Agent
-
 ```text
 Δ(act as product agent | synthesize inputs, decision-oriented, no new research)
-
-Task:
-Based on research and engineering inputs, recommend whether to proceed,
-including key tradeoffs and uncertainties.
-```
-
-### Coordination Rules (Δ-Based)
-
-```text
-Δ(wait for prior agents before responding)
-Δ(reference other agents instead of restating)
-Δ(flag disagreements explicitly)
-```
-
-### 🤖 Scenario Agent Output
-
-Three agents collaborated: Research, Engineering, and Product.
-
-**Research Agent**
-```text
-Industry practices for metrics in ad platforms include tracking core KPIs like impressions, CTR, CPC, conversion rate, CPA, ROAS, ROI, and engagement rate across platforms (Google Ads, Meta, etc.). 
-
-Best practices: align with marketing funnel, consolidate cross-platform data, automate via APIs, use multiple tracking methods. 
-
-Emerging: attention metrics (view time, emotional response) for better optimization beyond impressions/clicks; 36% of US ad buyers prioritize them. Shift to incrementality and media mix modeling due to privacy constraints.
-
-User demand: 47% of marketers struggle with ROI measurement; over 60% track CTR/conversion rates for campaign tuning. Rising ad costs (CPL +25%, CPC +10%) drive need for efficient metrics to optimize spend and prove value. Demand for attention metrics and data-driven insights to identify working tactics. No recent X discussions found on demand/practices.
-```
-
-**Engineering Agent**
-```text
-Feasible to implement metrics feature: integrate standard KPIs (impressions, CTR, etc.) via APIs from ad platforms, as per Research Agent's practices. Dependencies: data aggregation tools (e.g., for cross-platform consolidation), privacy-compliant tracking (e.g., for incrementality). 
-
-Complexity: medium—build dashboard/UI for real-time metrics; estimate 4-6 weeks effort for core, plus 2 weeks for attention metrics if added. 
-
-Risks: data silos across platforms, accuracy in privacy era, potential API rate limits/costs. No disagreements.
-```
-
-**Product Agent**
-```text
-Recommend proceeding: high user demand for ROI/optimization metrics aligns with industry shift to advanced tracking (e.g., attention, incrementality). 
-
-Tradeoffs: medium engineering effort vs. improved campaign efficiency/revenue potential. 
-
-Uncertainties: adoption rate if basic metrics suffice; privacy regulations impacting data accuracy. No new research; references Research/Engineering inputs.
+Task: Recommend whether to proceed, noting tradeoffs and uncertainties.
 ```
 
 ---
 
-## Notes
+## 🔁 Chaining ΔPrompts
 
-* **Baseline** statements should be declared once per session when possible.
-* ΔPrompts can be **chained** in follow-up turns:
+ΔPrompts are **incrementally composable**. You can refine behavior over multiple turns without restating the entire baseline or previous deltas.
 
-  ```text
-  Δ(shorter)
-  Δ(more formal)
-  Δ(add counterexample)
-  ```
-* When behavior drifts, re-anchor briefly.
+**Example Conversation Flow:**
+
+1.  **User:** `Δ(write report | technical, markdown)`
+2.  **Model:** [Generates technical report]
+3.  **User:** `Δ(make it shorter | use bullet points for the summary)`
+4.  **Model:** [Refines the report]
+5.  **User:** `Δ(add a "Risks" section | focus on security)`
+6.  **Model:** [Adds the requested section]
 
 ---
 
-## Philosophy
+## ⚓ Anchoring the Baseline
 
-> *If the model is competent, instructions should be corrective — not exhaustive.*
+When starting a new session or switching contexts, use a **one-time anchor** to set the expected behavior. Once anchored, use simple Deltas for specific tasks.
 
-ΔPrompt encodes intent through **difference, not repetition**.
+**Example:**
+
+**User (Anchor):**
+```text
+Baseline: Technical, Pythonic, no comments, minimal verbosity.
+```
+
+**User (Delta 1):**
+```text
+Δ(implement quicksort)
+```
+
+**User (Delta 2):**
+```text
+Δ(add type hints | O(n log n) verification)
+```
+
+---
+
+## 💡 Best Practices
+
+*   **Be Specific:** Only include what deviates from the baseline.
+*   **Use Pipes:** Use the `|` symbol to separate constraints for readability.
+*   **Re-Anchor:** If the model's behavior drifts in long conversations, re-anchor the baseline briefly.
+*   **Leverage Priors:** Assume the model knows "best practices" (e.g., O(n) for searching a hash map) unless you need to override them.
+
+---
+
+*For more details on defining baselines, see [BASELINE.md](BASELINE.md).*
