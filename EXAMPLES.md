@@ -46,6 +46,33 @@ first non-repeating character in a string, or -1 if none exists.
 
 ---
 
+## Data Analysis Task
+
+```text
+Baseline: rigorous, verified, cited, no marketing language.
+
+Δ(analyze dataset | identify 3 key trends, output as markdown table, include Python code)
+
+Task:
+Analyze the provided sales data for the last 2 years and identify quarterly growth patterns.
+```
+
+---
+
+## Copy Editing Task
+
+```text
+Baseline: modern, neutral prose, descriptive, high-quality.
+
+Δ(review text | grammar and flow only, no structural changes, neutral tone)
+
+Task:
+Please review the attached blog post for any grammatical errors and ensure the
+transitions between paragraphs are smooth.
+```
+
+---
+
 ## Multi-Step Tool-Using Agent
 
 ```text
@@ -178,14 +205,29 @@ Uncertainties: adoption rate if basic metrics suffice; privacy regulations impac
 ## Notes
 
 * **Baseline** statements should be declared once per session when possible.
-* ΔPrompts can be **chained** in follow-up turns:
+* ΔPrompts are **incrementally composable** in follow-up turns:
 
-  ```text
-  Δ(shorter)
-  Δ(more formal)
-  Δ(add counterexample)
-  ```
+  1. **User:** `Explain how a transformer model works.`
+  2. **User:** `Δ(more formal)` → *Model rewrites explanation in a formal tone.*
+  3. **User:** `Δ(add counterexample)` → *Model adds a counterexample to the formal explanation.*
+  4. **User:** `Δ(shorter)` → *Model shortens the entire combined output while maintaining prior deltas.*
 * When behavior drifts, re-anchor briefly.
+
+---
+
+## Anchoring
+
+Anchoring sets a persistent baseline for the entire session. Once anchored, you only need to use deltas for specific modifications.
+
+### Setting a Technical Baseline
+```text
+Baseline: Technical, Pythonic, no comments, minimal verbosity.
+```
+
+### Setting an Agentic Baseline
+```text
+Baseline: Autonomous, plan-first, explicit tool use, ask before recommending.
+```
 
 ---
 
