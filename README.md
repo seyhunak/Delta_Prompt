@@ -49,6 +49,7 @@ As LLMs become more capable, *instruction efficiency* and *agent control* matter
 * [**Comparison**](COMPARE.md) — ΔPrompt vs. Traditional (Naive) methods
 * [**Delta vs Naive**](DELTA_VS_NAIVE.md) — Deep dive into the methodology
 * [**Benchmarks**](BENCHMARK.md) — Evaluation and performance metrics
+* [**CLI Guide**](CLI.md) — DeltaPrompt CLI (`dp`) commands and usage
 
 ---
 
@@ -254,6 +255,41 @@ Less ideal for:
 | System prompts   | ΔPrompt operates *within* them    |
 
 ΔPrompt is **orthogonal and composable** with all of the above.
+
+---
+
+## 🖥️ DeltaPrompt CLI
+
+DeltaPrompt includes an agent-focused CLI tool, `dp`, for baseline + delta + goal workflows with multi-provider execution.
+
+### Key capabilities
+
+* Async-first CLI built with `typer`
+* Multi-provider support: OpenAI, Anthropic, Ollama (local-first fallback)
+* Optional Tavily web search context for prompt enrichment
+* Auto provider detection from environment/API availability
+* Interactive setup (`dp setup`) with persistent config
+* Session persistence in `~/.deltaprompt/session.json`
+* Config persistence in `~/.deltaprompt/config.json`
+* Pretty markdown rendering in terminal
+* Live execution progress + structured run stats (provider/model/token estimate/latency)
+* Benchmark mode with provider comparison
+
+### Install
+
+```bash
+python3 -m pip install -e .
+```
+
+### Quick start
+
+```bash
+dp setup
+dp set "You are a concise technical assistant." "Design an async retry strategy for API calls." -d "Prefer structured output."
+dp run
+```
+
+For full command reference and examples, see [CLI.md](CLI.md).
 
 ---
 
