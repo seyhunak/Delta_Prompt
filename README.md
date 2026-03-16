@@ -50,6 +50,7 @@ As LLMs become more capable, *instruction efficiency* and *agent control* matter
 * [**Delta vs Naive**](DELTA_VS_NAIVE.md) — Deep dive into the methodology
 * [**Benchmarks**](BENCHMARK.md) — Evaluation and performance metrics
 * [**CLI Guide**](CLI.md) — DeltaPrompt CLI (`dp`) commands and usage
+* [**Skill**](SKILL.md) — Claude Code skill for ΔPrompt workflows
 
 ---
 
