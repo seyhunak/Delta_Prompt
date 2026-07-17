@@ -319,13 +319,6 @@ Open an issue or PR.
 
 ---
 
-## 🔗 Contact
-
-This technique was developed by **Seyhun Akyurek** at **[Crafted AI](https://we-crafted.com)**
-
-At Crafted we specialize in high-performance agentic systems and advanced prompting architectures. To learn more or collaborate, visit **[we-crafted.com](https://we-crafted.com)**.
-
----
 
 ## 📜 License
 
