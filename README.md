@@ -51,6 +51,7 @@ As LLMs become more capable, *instruction efficiency* and *agent control* matter
 * [**Benchmarks**](BENCHMARK.md) — Evaluation and performance metrics
 * [**CLI Guide**](CLI.md) — DeltaPrompt CLI (`dp`) commands and usage
 * [**Skill**](SKILL.md) — Claude Code skill for ΔPrompt workflows
+* [**Contributor Guide**](CLAUDE.md) — Repository architecture and conventions for AI coding agents
 
 ---
 
@@ -330,4 +331,4 @@ Copyright (c) 2026 Seyhun Akyurek
 
 ---
 
-**Last Updated:** January 30, 2026
+**Last Updated:** August 2, 2026
